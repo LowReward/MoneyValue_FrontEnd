@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginPage  from '../components/LoginPage.vue'
 import DashboardAdmin  from '../components/Dashboard/DashboardAdmin.vue'
+import CurrenciesView  from '../components/Dashboard/CurrenciesView.vue'
+import PairsView  from '../components/Dashboard/PairsView.vue'
 import store from '../store';
 
 const routes = [
@@ -14,7 +16,19 @@ const routes = [
     name: 'DashboardAdmin',
     component: DashboardAdmin,
     // Besoin d'être authentifié
-    meta: {requiresAuth: true}
+    meta: {requiresAuth: true},
+    children:[
+      {
+        path: 'currenciesview',
+        name: 'currenciesview',
+        compnent: CurrenciesView
+      },
+      {
+        path: 'pairsview',
+        name: 'pairsview',
+        compnent: PairsView
+      }
+    ]
   }
 ]
 
