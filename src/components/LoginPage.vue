@@ -1,15 +1,16 @@
 <template>
-    <form @submit.prevent="login">
-        <div>
+    <form class="center" @submit.prevent="login">
+        <div class="inputbox">
             <label for="email">Email:</label>
             <input type="email" id="email" v-model="email">
         </div>
-        <div>
+        <div class="inputbox">
             <label for="password">Password:</label>
             <input type="password" id="password" v-model="password">
         </div>
         <button type="submit">Login</button>
     </form>
+    <p v-if="loginError">{{ loginError }}</p>
 </template>
   
 <script>
@@ -20,7 +21,8 @@ export default {
     data() {
         return {
             email: '',
-            password: ''
+            password: '',
+            loginError: ''
         }
     },
     methods: {
@@ -30,12 +32,14 @@ export default {
                 password: this.password
             })
                 .then(response => {
+                    //direction store pour être sauver et repris en bearer
                     store.state.user.token = response.data.token;
                     console.log(store.state.user.token);
-                    //this.$router.push()
+                    //this.$router.push('admin/dashboard')
                 })
                 .catch(error => {
                     console.log(error);
+                    this.loginError = 'Login incorrect. Veuillez réessayer.';
                 });
 
         }
@@ -43,4 +47,6 @@ export default {
 }
 </script>
   
-<style scoped></style>
+<style scoped>
+
+</style>
