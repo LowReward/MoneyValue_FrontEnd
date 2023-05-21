@@ -11,22 +11,26 @@ const routes = [
     name: 'LoginPage',
     component: LoginPage
   },
+  
   {
     path: '/admin/dashboard',
     name: 'DashboardAdmin',
     component: DashboardAdmin,
-    // Besoin d'être authentifié
+    // Spécifie que la route a besoin d'une authentification
     meta: {requiresAuth: true},
+    // Route enfant du dashboard
     children:[
       {
-        path: 'currenciesview',
-        name: 'currenciesview',
-        compnent: CurrenciesView
+        path: 'pairs',
+        // Lorsque le path sera atteint le composant correspondant sera rendu
+        component: PairsView,
+        // On exige aussi une authentification pour les routes en questions par mesure de sécurité
+        meta: {requiresAuth: true},
       },
       {
-        path: 'pairsview',
-        name: 'pairsview',
-        compnent: PairsView
+        path: 'currencies',
+        component: CurrenciesView,
+        meta: {requiresAuth: true},
       }
     ]
   }
