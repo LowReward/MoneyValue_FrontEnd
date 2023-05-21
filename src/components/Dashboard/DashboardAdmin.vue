@@ -1,5 +1,7 @@
 <template>
-    <h1>dashboard</h1>
+    <h1>Dashboard</h1>
+    <router-view name="devises"></router-view>
+    <router-view name="pairs"></router-view>
 </template>
 
 <script>
@@ -7,5 +9,8 @@
 //import store from '../store';
 export default {
     name:'DashboardAdmin',
+    methods:{
+      
+    }
 }
 </script>
