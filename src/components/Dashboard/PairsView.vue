@@ -98,6 +98,10 @@ export default {
                     // showconfirmation à true pour afficher le message dans la condition associée
                     this.showConfirmation = true;
                     console.log('Paire supprimée avec succès');
+                    // Timeout pour réinitialiser le message de suppression après 3 secondes
+                    setTimeout(() => {
+                        this.showConfirmation = false;
+                    }, 3000);
                 })
                 .catch(error => {
                      
