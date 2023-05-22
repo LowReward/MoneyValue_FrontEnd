@@ -2,7 +2,8 @@
     <div>
       <!-- Afficher la liste des paires si showCreateForm et showUpdateForm sont sur false -->
       <template v-if="!showCreateForm && !showUpdateForm">
-        <div v-if="showConfirmation" class="alert alert-danger mt-4">Paire supprimée avec succès.</div>
+        <div v-if="showConfirmationUpdated" class="alert alert-success mt-4">Paire modifiée avec succès.</div>
+        <div v-if="showConfirmationDelete" class="alert alert-danger mt-4">Paire supprimée avec succès.</div>
         <div class="d-flex justify-content-between align-items-center mt-5">
           <h2>Liste des paires:</h2>
           <!-- Appel de la méthode toggleCreateForm pour afficher le form de création de paire -->
@@ -62,7 +63,8 @@
         showCreateForm: false,
         showUpdateForm: false,
         selectedPair: null,
-        showConfirmation: false,
+        showConfirmationUpdated: false,
+        showConfirmationDelete: false,
       };
     },
   
@@ -104,6 +106,10 @@
       onPairUpdated() {
         this.showUpdateForm = false;
         this.fetchPairs();
+        this.showConfirmationUpdated = true;
+            setTimeout(() => {
+              this.showConfirmationUpdated = false;
+            }, 3000);
       },
       
 
@@ -118,9 +124,9 @@
           .then(response => {
             console.log(response);
             this.fetchPairs();
-            this.showConfirmation = true;
+            this.showConfirmationDelete = true;
             setTimeout(() => {
-              this.showConfirmation = false;
+              this.showConfirmationDelete = false;
             }, 3000);
           })
           .catch(error => {
