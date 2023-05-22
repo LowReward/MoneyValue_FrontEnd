@@ -5,7 +5,7 @@
       </div>
       <form @submit.prevent="createPair">
         <div class="form-group">
-          <label for="currencyFrom">Devise de départ:</label>
+          <label for="currencyFrom">Devises (depuis):</label>
           <select class="form-control" id="currencyFrom" v-model="newPair.currency_from">
             <option v-for="currency in currencies" :key="currency.code" :value="currency.code">
               {{ currency.name }} ({{ currency.code }})
@@ -14,7 +14,7 @@
         </div>
   
         <div class="form-group">
-          <label for="currencyTo">Devise d'arrivée:</label>
+          <label for="currencyTo">Devises (vers):</label>
           <select class="form-control" id="currencyTo" v-model="newPair.currency_to">
             <option v-for="currency in currencies" :key="currency.code" :value="currency.code">
               {{ currency.name }} ({{ currency.code }})

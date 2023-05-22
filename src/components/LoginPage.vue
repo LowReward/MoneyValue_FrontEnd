@@ -35,7 +35,7 @@ export default {
                     //Récupération du token dans la réponse et ensuite store dans le state user token ( Vuex )
                     store.state.user.token = response.data.token;
                     console.log(store.state.user.token);
-                    this.$router.push('/admin/dashboard')
+                    this.$router.push('/admin/dashboard/pairs')
                 })
                 .catch(error => {
                     console.log(error);
