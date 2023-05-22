@@ -2,6 +2,7 @@
     <div>
         <!-- Afficher la liste des paires si showCreateForm est false -->
         <template v-if="!showCreateForm">
+            <div v-if="showConfirmation" class="alert alert-danger mt-4">Paire supprimée avec succès.</div>
             <div class="d-flex justify-content-between align-items-center mt-5">
                 <h2>Liste des paires:</h2>
                 <!-- Appel de la méthode toggleCreateForm pour afficher le form de création de paire -->
@@ -50,8 +51,12 @@ export default {
     name: 'PairsView',
     data() {
         return {
+            // Tableau pour notre liste de paires
             pairs: [],
+            // Boolean pour afficher ou non le form de creation (sur false par défaut)
             showCreateForm: false,
+            // Boolean pour afficher ou non le message de suppresion (sur false par défaut)
+            showConfirmation: false,
         };
     },
     mounted() {
@@ -90,9 +95,12 @@ export default {
                     console.log(response)
                     // Suppression réussie, mettre à jour la liste des paires
                     this.fetchPairs();
+                    // showconfirmation à true pour afficher le message dans la condition associée
+                    this.showConfirmation = true;
                     console.log('Paire supprimée avec succès');
                 })
                 .catch(error => {
+                     
                     console.error(error);
                 });
         }
