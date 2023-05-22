@@ -16,7 +16,7 @@
         <div class="form-group mt-4">
           <label for="currencyTo">Devises (vers):</label>
           <select class="form-control" id="currencyTo" v-model="newPair.currency_to" required>
-            <option v-for="currency in currencies" :key="currency.code" :value="currency.code">
+            <option v-for="currency in fiteredCurrencies" :key="currency.code" :value="currency.code">
               {{ currency.name }} ({{ currency.code }})
             </option>
           </select>
@@ -50,6 +50,14 @@
     },
     mounted() {
       this.fetchCurrencies();
+    },
+    computed:{
+        fiteredCurrencies(){
+            // Filtre dans notre tableau des devises fetched 
+            // On vérifie si le code de la devise sélectionné est différent de la première partie du formulaire ( depuis => this.newPair.CURRENCY_FROM )
+            // La nouvelle liste de devise filtrée est donc retournée sans celle selectionnée dans la première partie, on évite donc de pouvoir la sélectionnée dans les 2 en même temps
+            return this.currencies.filter(currency=> currency.code !== this.newPair.currency_from)
+        }
     },
     methods: {
       fetchCurrencies() {
