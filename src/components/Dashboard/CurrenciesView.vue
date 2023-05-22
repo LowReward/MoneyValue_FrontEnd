@@ -23,9 +23,9 @@
               <td>{{ currency.name }} - {{ currency.code }}</td>
               <td>
                 <!-- À venir -->
-                <button class="btn btn-sm btn-primary " @click="editPair(currency)">Modifier</button>
+                <button class="btn btn-sm btn-primary " @click="editCurrency(currency)">Modifier</button>
                 <!-- Appel de la fonction deletePair avec la clé de l'élément en question -->
-                <button class="btn btn-sm btn-danger" @click="deletePair(currency)">Supprimer</button>
+                <button class="btn btn-sm btn-danger" @click="deleteCurrency(currency)">Supprimer</button>
               </td>
             </tr>
           </tbody>
@@ -55,7 +55,7 @@
     name: 'CurrenciesView',
     data() {
       return {
-        pairs: [],
+        currencies: [],
         showCreateForm: false,
         showUpdateForm: false,
         selectedCurrency: null,
@@ -111,7 +111,7 @@
   
       deleteCurrency(currency) {
         axiosClient
-          .delete(`http://localhost:8000/api/pairs/${currency.id}`)
+          .delete(`http://localhost:8000/api/currencies/${currency.id}`)
           .then(response => {
             console.log(response);
             this.fetchCurrencies();

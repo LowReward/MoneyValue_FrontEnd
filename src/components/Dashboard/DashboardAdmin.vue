@@ -6,11 +6,11 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <!-- Lien pour accéder à la vue des Pairs -->
-              <router-link class="nav-link" to="/admin/dashboard/pairs">Pairs</router-link>
+              <router-link class="nav-link" to="/admin/dashboard/pairs">Paires</router-link>
             </li>
             <li class="nav-item">
               <!-- Lien pour accéder à la vue des Currencies -->
-              <router-link class="nav-link" to="/admin/dashboard/currencies">Currencies</router-link>
+              <router-link class="nav-link" to="/admin/dashboard/currencies">Devises</router-link>
             </li>
           </ul>
         </div>
