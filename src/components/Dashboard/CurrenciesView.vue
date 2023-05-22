@@ -8,9 +8,9 @@
         <div class="d-flex justify-content-between align-items-center mt-5">
           <h2>Liste des devises:</h2>
           <!-- Appel de la méthode toggleCreateForm pour afficher le form de création de paire -->
-          <button class="btn btn-primary" @click="toggleCreateForm">Ajouter une devise</button>
+          <button class="btn btn-primary " @click="toggleCreateForm">Ajouter une devise</button>
         </div>
-        <table class="table mt-4">
+        <table class="table  mt-5">
           <!-- Contenu du tableau -->
           <thead>
             <tr>

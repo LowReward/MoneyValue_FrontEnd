@@ -18,7 +18,9 @@
       <!-- Le contenu correspondant à l'URL de nav sera affiché à cette emplacement
           donc quand un clique est produit sur la vue correspondante, un rendue sera produit
           dans notre balise router-view -->
+        <div class="">
       <router-view></router-view>
+    </div>
     </div>
   </template>
   

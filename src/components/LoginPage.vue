@@ -1,17 +1,29 @@
 <template>
-    <form class="center" @submit.prevent="login">
-        <div class="inputbox">
-            <label for="email">Email:</label>
-            <input type="email" id="email" v-model="email">
+    <div class="container">
+      <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">Connexion</h3>
+              <form @submit.prevent="login">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email:</label>
+                  <input type="email" id="email" v-model="email" class="form-control">
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password:</label>
+                  <input type="password" id="password" v-model="password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+              </form>
+            </div>
+          </div>
+          <p v-if="loginError" class="mt-3 text-danger">{{ loginError }}</p>
         </div>
-        <div class="inputbox">
-            <label for="password">Password:</label>
-            <input type="password" id="password" v-model="password">
-        </div>
-        <button type="submit">Login</button>
-    </form>
-    <p v-if="loginError">{{ loginError }}</p>
-</template>
+      </div>
+    </div>
+  </template>
+  
   
 <script>
 import axios from 'axios';
