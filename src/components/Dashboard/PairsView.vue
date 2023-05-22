@@ -143,3 +143,10 @@
   };
   </script>
   
+  <style>
+  /* Ajustement de l'apparence du router-view */
+  .router-view-container {
+    min-height: 300px; /* Hauteur minimale souhaitée */
+    padding: 20px; /* Espace intérieur pour le contenu */
+  }
+</style>

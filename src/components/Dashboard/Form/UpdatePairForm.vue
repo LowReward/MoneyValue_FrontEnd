@@ -4,7 +4,7 @@
       <form @submit.prevent="updatePair">
         <div class="form-group">
           <label for="currencyFrom">Devises (depuis)</label>
-          <select v-model="updatedPair.currency_from" class="form-control" required>
+          <select v-model="updatedPair.currency_from" placeholder="Selectionnez une devise (depuis)" class="form-control" required>
             <option v-for="currency in currencies" :value="currency.code" :key="currency.code">
               {{ currency.code }}
             </option>
@@ -12,7 +12,7 @@
         </div>
         <div class="form-group">
           <label for="currencyTo">Devises (vers)</label>
-          <select v-model="updatedPair.currency_to" class="form-control" required>
+          <select v-model="updatedPair.currency_to" placeholder="Selectionnez une devise (vers)" class="form-control" required>
             <option v-for="currency in currencies" :value="currency.code" :key="currency.code">
               {{ currency.code }}
             </option>
@@ -20,7 +20,7 @@
         </div>
         <div class="form-group">
           <label for="conversionRate">Taux de conversion</label>
-          <input v-model="updatedPair.conversion_rate" type="text" class="form-control" id="conversionRate" required>
+          <input v-model="updatedPair.conversion_rate" type="number" class="form-control" id="conversionRate"  min="0" max="999999" pattern="^[0-9]+(\.[0-9]{1,2})?$" step="0.01" required>
         </div>
         <button type="submit" class="btn btn-primary">Mettre à jour</button>
         <button type="button" class="btn btn-secondary" @click="cancelUpdate">Annuler</button>

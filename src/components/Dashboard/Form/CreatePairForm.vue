@@ -6,7 +6,7 @@
       <form @submit.prevent="createPair">
         <div class="form-group">
           <label for="currencyFrom">Devises (depuis):</label>
-          <select class="form-control" id="currencyFrom" v-model="newPair.currency_from">
+          <select class="form-control" id="currencyFrom"  v-model="newPair.currency_from" required>
             <option v-for="currency in currencies" :key="currency.code" :value="currency.code">
               {{ currency.name }} ({{ currency.code }})
             </option>
@@ -15,7 +15,7 @@
   
         <div class="form-group">
           <label for="currencyTo">Devises (vers):</label>
-          <select class="form-control" id="currencyTo" v-model="newPair.currency_to">
+          <select class="form-control" id="currencyTo" v-model="newPair.currency_to" required>
             <option v-for="currency in currencies" :key="currency.code" :value="currency.code">
               {{ currency.name }} ({{ currency.code }})
             </option>
@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
           <label for="conversion_rate">Taux de conversion:</label>
-          <input class="form-control" id="conversion_rate" v-model="newPair.conversion_rate">
+          <input type="number" class="form-control" id="conversion_rate" placeholder="0" min="0" max="999999" pattern="^[0-9]+(\.[0-9]{1,2})?$" step="0.01" v-model="newPair.conversion_rate" required>
         </div>
   
   
@@ -43,7 +43,7 @@
         newPair: {
           currency_from: '',
           currency_to: '',
-          conversion_rate: 0,
+          conversion_rate: '',
         },
         currencies: []
       };

@@ -6,12 +6,12 @@
       <form @submit.prevent="createCurrency">
         <div class="form-group">
           <label for="currency_code">Code de la Devise:</label>
-          <input class="form-control" id="currency_code" v-model="newCurrency.code">
+          <input class="form-control" id="currency_code" v-model="newCurrency.code" required>
         </div>
   
         <div class="form-group">
           <label for="currency_name">Nom de la Devise:</label>
-          <input class="form-control" id="currency_name" v-model="newCurrency.name">
+          <input class="form-control" id="currency_name" v-model="newCurrency.name" required>
         </div>
         <button type="submit" class="btn btn-primary" >Créer la devise</button>
         <button type="button" class="btn btn-secondary" @click="cancelCreate">Annuler</button>

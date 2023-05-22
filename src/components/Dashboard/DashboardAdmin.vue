@@ -1,9 +1,10 @@
 <template>
     <div>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand " href="#">Dashboard MoneyValue</a>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-          <ul class="navbar-nav">
+        
+        <div class="collapse navbar-collapse text-center" id="navbarNav">
+            <a class="navbar-brand mx-auto" href="#">Dashboard MoneyValue</a>
+          <ul class="navbar-nav mx-auto">
             <li class="nav-item">
               <!-- Lien pour accéder à la vue des Pairs -->
               <router-link class="nav-link" to="/admin/dashboard/pairs">Paires</router-link>
@@ -15,14 +16,17 @@
           </ul>
         </div>
       </nav>
-      <!-- Le contenu correspondant à l'URL de nav sera affiché à cette emplacement
-          donc quand un clique est produit sur la vue correspondante, un rendue sera produit
+      <!-- Le contenu correspondant à l'URL de nav sera affiché à cet emplacement
+          donc quand un clic est produit sur la vue correspondante, un rendu sera produit
           dans notre balise router-view -->
-        <div class="">
-      <router-view></router-view>
-    </div>
+      <div class="container d-flex justify-content-center mt-5">
+        <router-view></router-view>
+      </div>
     </div>
   </template>
+  
+  
+  
   
   
   
@@ -31,4 +35,7 @@
     name: 'DashboardAdmin',
   }
   </script>
+
+
+
   
