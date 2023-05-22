@@ -1,6 +1,6 @@
 <template>
     <div>
-      <!-- Afficher la liste des paires si showCreateForm est false -->
+      <!-- Afficher la liste des paires si showCreateForm et showUpdateForm sont sur false -->
       <template v-if="!showCreateForm && !showUpdateForm">
         <div v-if="showConfirmation" class="alert alert-danger mt-4">Paire supprimée avec succès.</div>
         <div class="d-flex justify-content-between align-items-center mt-5">
@@ -44,7 +44,7 @@
       <template v-if="showUpdateForm">
         <!-- Si showUpdateForm est sur true alors le form vient remplacer le tableau, une fois l'event pair-updated
           reçu de notre UpdatePairForm.vue, alors showUpdateForm passe à false via la fonction onPairUpdated-->
-        <update-pair-form :pair="selectedPair" @pair-updated="onPairUpdated" />
+        <update-pair-form :pair="selectedPair" @pair-updated="onPairUpdated" @cancel="cancelUpdate"/>
       </template>
     </div>
   </template>
@@ -104,6 +104,10 @@
       onPairUpdated() {
         this.showUpdateForm = false;
         this.fetchPairs();
+      },
+
+      cancelUpdate() {
+      this.showUpdateForm = false;
       },
   
       deletePair(pair) {

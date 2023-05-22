@@ -23,6 +23,7 @@
           <input v-model="updatedPair.conversion_rate" type="text" class="form-control" id="conversionRate" required>
         </div>
         <button type="submit" class="btn btn-primary">Mettre à jour</button>
+        <button type="button" class="btn btn-secondary" @click="cancelUpdate">Annuler</button>
       </form>
     </div>
   </template>
@@ -75,6 +76,9 @@ export default {
         .catch(error => {
           console.error(error);
         });
+    },
+    cancelUpdate() {
+      this.$emit('cancel');
     },
   },
 };
