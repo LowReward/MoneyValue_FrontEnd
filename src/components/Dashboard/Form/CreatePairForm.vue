@@ -28,6 +28,7 @@
   
   
         <button type="submit" class="btn btn-primary" @click="createPair" >Créer la paire</button>
+        <button type="button" class="btn btn-secondary" @click="cancelCreate">Annuler</button>
       </form>
     </div>
   </template>
@@ -72,7 +73,10 @@
             // Gérer l'erreur s'il y en a une
             console.error(error);
           });
-      }
+      },
+      cancelCreate() {
+      this.$emit('cancel');
+    },
     }
   };
   </script>

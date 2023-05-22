@@ -38,7 +38,7 @@
       <template v-if="showCreateForm">
         <!-- Si showCreateForm est sur true alors le form vient remplacer le tableau, une fois l'event pair-created
           reçu de notre CreatePairForm.vue, alors showCreateForm passe à false via la fonction onPairCreated-->
-        <create-pair-form @pair-created="onPairCreated" />
+        <create-pair-form @pair-created="onPairCreated" @cancel="toggleCreateForm"/>
       </template>
       <!-- Afficher le formulaire de mise à jour de paire -->
       <template v-if="showUpdateForm">
@@ -105,10 +105,12 @@
         this.showUpdateForm = false;
         this.fetchPairs();
       },
+      
 
       cancelUpdate() {
       this.showUpdateForm = false;
       },
+      
   
       deletePair(pair) {
         axiosClient
