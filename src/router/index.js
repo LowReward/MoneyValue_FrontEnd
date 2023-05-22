@@ -3,9 +3,18 @@ import LoginPage  from '../components/LoginPage.vue'
 import DashboardAdmin  from '../components/Dashboard/DashboardAdmin.vue'
 import CurrenciesView  from '../components/Dashboard/CurrenciesView.vue'
 import PairsView  from '../components/Dashboard/PairsView.vue'
+import PageNotFound  from '../components/PageNotFound.vue'
 import store from '../store';
 
 const routes = [
+  
+  {
+    // Capture toutes les routes non correspondantes à celles déjà définies
+    path: '/:pathMatch(.*)*',
+    name: 'PageNotFound',
+    // Vue créee avec un message d'erreur 404 au cas où la page n'existe pas
+    component: PageNotFound
+  },
   {
     path: '/login',
     name: 'LoginPage',
@@ -18,7 +27,7 @@ const routes = [
     component: DashboardAdmin,
     // Spécifie que la route a besoin d'une authentification
     meta: {requiresAuth: true},
-    // Route enfant du dashboard
+    // Routes enfants du dashboard
     children:[
       {
         path: 'pairs',
