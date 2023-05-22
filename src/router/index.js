@@ -25,12 +25,12 @@ const routes = [
         // Lorsque le path sera atteint le composant correspondant sera rendu
         component: PairsView,
         // On exige aussi une authentification pour les routes en questions par mesure de sécurité
-        meta: {requiresAuth: true},
+        //meta: {requiresAuth: true},
       },
       {
         path: 'currencies',
         component: CurrenciesView,
-        meta: {requiresAuth: true},
+        //meta: {requiresAuth: true},
       }
     ]
   }

@@ -2,7 +2,9 @@
     <div>
       <!-- Afficher la liste des paires si showCreateForm et showUpdateForm sont sur false -->
       <template v-if="!showCreateForm && !showUpdateForm">
-        <div v-if="showConfirmation" class="alert alert-danger mt-4">Devise supprimée avec succès.</div>
+        <div v-if="showConfirmationCreated" class="alert alert-success mt-4">Devise créee avec succès.</div>
+        <div v-if="showConfirmationUpdated" class="alert alert-success mt-4">Devise modifiée avec succès.</div>
+        <div v-if="showConfirmationDeleted" class="alert alert-danger mt-4">Devise supprimée avec succès.</div>
         <div class="d-flex justify-content-between align-items-center mt-5">
           <h2>Liste des devises:</h2>
           <!-- Appel de la méthode toggleCreateForm pour afficher le form de création de paire -->
@@ -59,7 +61,9 @@
         showCreateForm: false,
         showUpdateForm: false,
         selectedCurrency: null,
-        showConfirmation: false,
+        showConfirmationCreated: false,
+        showConfirmationUpdated: false,
+        showConfirmationDeleted: false,
       };
     },
   
@@ -91,6 +95,10 @@
       onCurrencyCreated() {
         this.showCreateForm = false;
         this.fetchCurrencies();
+        this.showConfirmationCreated = true;
+            setTimeout(() => {
+              this.showConfirmationCreated = false;
+            }, 3000);
       },
   
       editCurrency(currency) {
@@ -101,6 +109,10 @@
       onPairUpdated() {
         this.showUpdateForm = false;
         this.fetchCurrencies();
+        this.showConfirmationUpdated = true;
+            setTimeout(() => {
+              this.showConfirmationUpdated = false;
+            }, 3000);
       },
       
 
@@ -115,9 +127,9 @@
           .then(response => {
             console.log(response);
             this.fetchCurrencies();
-            this.showConfirmation = true;
+            this.showConfirmationDeleted = true;
             setTimeout(() => {
-              this.showConfirmation = false;
+              this.showConfirmationDeleted = false;
             }, 3000);
           })
           .catch(error => {

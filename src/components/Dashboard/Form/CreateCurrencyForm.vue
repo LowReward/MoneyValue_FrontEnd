@@ -13,7 +13,7 @@
           <label for="currency_name">Nom de la Devise:</label>
           <input class="form-control" id="currency_name" v-model="newCurrency.name">
         </div>
-        <button type="submit" class="btn btn-primary" @click="createPair" >Créer la devise</button>
+        <button type="submit" class="btn btn-primary" >Créer la devise</button>
         <button type="button" class="btn btn-secondary" @click="cancelCreate">Annuler</button>
       </form>
     </div>
@@ -33,7 +33,7 @@
       };
     },
     methods: {
-      createPair() {
+      createCurrency() {
         // Effectuer la requête HTTP pour créer la paire dans le backend
         axiosClient.post('http://localhost:8000/api/currencies', this.newCurrency)
           .then(response => {

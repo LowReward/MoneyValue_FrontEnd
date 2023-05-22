@@ -27,7 +27,7 @@
         </div>
   
   
-        <button type="submit" class="btn btn-primary" @click="createPair" >Créer la paire</button>
+        <button type="submit" class="btn btn-primary" >Créer la paire</button>
         <button type="button" class="btn btn-secondary" @click="cancelCreate">Annuler</button>
       </form>
     </div>
