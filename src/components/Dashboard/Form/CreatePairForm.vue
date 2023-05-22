@@ -4,7 +4,7 @@
         <h2>Ajouter une paire:</h2>
       </div>
       <form @submit.prevent="createPair">
-        <div class="form-group">
+        <div class="form-group mt-4">
           <label for="currencyFrom">Devises (depuis):</label>
           <select class="form-control" id="currencyFrom"  v-model="newPair.currency_from" required>
             <option v-for="currency in currencies" :key="currency.code" :value="currency.code">
@@ -13,7 +13,7 @@
           </select>
         </div>
   
-        <div class="form-group">
+        <div class="form-group mt-4">
           <label for="currencyTo">Devises (vers):</label>
           <select class="form-control" id="currencyTo" v-model="newPair.currency_to" required>
             <option v-for="currency in currencies" :key="currency.code" :value="currency.code">
@@ -21,14 +21,14 @@
             </option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group mt-4">
           <label for="conversion_rate">Taux de conversion:</label>
           <input type="number" class="form-control" id="conversion_rate" placeholder="0" min="0" max="999999" pattern="^[0-9]+(\.[0-9]{1,2})?$" step="0.01" v-model="newPair.conversion_rate" required>
         </div>
   
-  
-        <button type="submit" class="btn btn-primary" >Créer la paire</button>
-        <button type="button" class="btn btn-secondary" @click="cancelCreate">Annuler</button>
+        <div class='mt-4 '>
+        <button type="submit" class="btn btn-primary " >Créer la paire</button>
+        <button type="button" class="btn btn-secondary mx-2" @click="cancelCreate">Annuler</button></div>
       </form>
     </div>
   </template>

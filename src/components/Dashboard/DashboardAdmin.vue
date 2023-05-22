@@ -23,6 +23,12 @@
         <router-view></router-view>
       </div>
     </div>
+
+    <footer class="footer mt-5" style="background-color: #f8f9fa; padding: 20px 0; bottom: 0; position: fixed; width: 100%;">
+      <div class="container text-center">
+        <p>Le dashboard n'est accessible que pour l'adminstrateur, veuillez gardez vos informations de manière confidentielle.</p>
+      </div>
+    </footer>
   </template>
   
   
@@ -35,6 +41,7 @@
     name: 'DashboardAdmin',
   }
   </script>
+
 
 
 
