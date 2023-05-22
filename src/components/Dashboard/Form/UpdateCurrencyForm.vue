@@ -2,17 +2,18 @@
     <div>
       <h3>Modifier une devise</h3>
       <form @submit.prevent="updateCurrency">
-        <div class="form-group">
+        <div class="form-group mt-4">
           <label for="currency_code">Code de la Devise:</label>
           <input class="form-control" id="currency_code" v-model="updatedCurrency.code">
         </div>
   
-        <div class="form-group">
+        <div class="form-group mt-4">
           <label for="currency_name">Nom de la Devise:</label>
           <input class="form-control" id="currency_name" v-model="updatedCurrency.name">
         </div>
+        <div class='mt-4 '>
         <button type="submit" class="btn btn-primary">Mettre à jour</button>
-        <button type="button" class="btn btn-secondary" @click="cancelUpdate">Annuler</button>
+        <button type="button" class="btn btn-secondary mx-2" @click="cancelUpdate">Annuler</button></div>
       </form>
     </div>
   </template>

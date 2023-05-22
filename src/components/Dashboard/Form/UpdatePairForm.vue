@@ -2,7 +2,7 @@
     <div>
       <h3>Modifier une paire</h3>
       <form @submit.prevent="updatePair">
-        <div class="form-group">
+        <div class="form-group mt-4">
           <label for="currencyFrom">Devises (depuis)</label>
           <select v-model="updatedPair.currency_from" placeholder="Selectionnez une devise (depuis)" class="form-control" required>
             <option v-for="currency in currencies" :value="currency.code" :key="currency.code">
@@ -10,7 +10,7 @@
             </option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group mt-4">
           <label for="currencyTo">Devises (vers)</label>
           <select v-model="updatedPair.currency_to" placeholder="Selectionnez une devise (vers)" class="form-control" required>
             <option v-for="currency in currencies" :value="currency.code" :key="currency.code">
@@ -18,12 +18,13 @@
             </option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group mt-4">
           <label for="conversionRate">Taux de conversion</label>
           <input v-model="updatedPair.conversion_rate" type="number" class="form-control" id="conversionRate"  min="0" max="999999" pattern="^[0-9]+(\.[0-9]{1,2})?$" step="0.01" required>
         </div>
-        <button type="submit" class="btn btn-primary">Mettre à jour</button>
-        <button type="button" class="btn btn-secondary" @click="cancelUpdate">Annuler</button>
+        <div class='mt-4 '>
+        <button type="submit" class="btn btn-primary ">Mettre à jour</button>
+        <button type="button" class="btn btn-secondary mx-2" @click="cancelUpdate">Annuler</button></div>
       </form>
     </div>
   </template>
