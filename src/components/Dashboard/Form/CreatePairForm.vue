@@ -65,8 +65,8 @@
         axiosClient.post('http://localhost:8000/api/pairs', this.newPair)
           .then(response => {
             console.log(response),
+            this.$emit('pair-created');
             console.log('Paire créée avec succès');
-            this.$router.push('/admin/dashboard/pairs')
           })
           .catch(error => {
             // Gérer l'erreur s'il y en a une
