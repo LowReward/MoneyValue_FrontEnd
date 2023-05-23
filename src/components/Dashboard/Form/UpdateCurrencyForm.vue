@@ -1,5 +1,7 @@
 <template>
     <div>
+      <div v-if="showError422" class="alert alert-danger mt-4">Le code pour cette devise existe déjà.</div>
+      <div v-if="showErrorRandom" class="alert alert-danger mt-4">Une erreur s'est produite, veuillez réessayer.</div>
       <h3>Modifier une devise</h3>
       <form @submit.prevent="updateCurrency">
         <div class="form-group mt-4">
@@ -33,6 +35,8 @@ export default {
   data() {
     return {
       updatedCurrency: {},
+      showError422: false,
+      showErrorRandom: false,
     };
   },
   created() {
@@ -50,8 +54,23 @@ export default {
           this.$emit('currency-updated');
         })
         .catch(error => {
-          console.error(error);
-        });
+            // Gére l'erreur s'il y en a une
+            if (error.response && error.response.status === 422) {
+              // Gére l'erreur de validation avec le code 422
+              this.showError422 = true,
+                setTimeout(() => {
+                  this.showError422 = false;
+                }, 5000);
+              console.error('Erreur de validation :', error.response.data.errors);
+            } else {
+              // Gére toutes les autres erreurs
+              this.showErrorRandom = true,
+                setTimeout(() => {
+                  this.showErrorRandom = false;
+                }, 5000);
+              console.error('Une erreur s\'est produite :', error);
+            }
+          });
     },
     cancelUpdate() {
       this.$emit('cancel');
