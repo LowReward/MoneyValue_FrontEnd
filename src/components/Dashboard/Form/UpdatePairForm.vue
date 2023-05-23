@@ -13,7 +13,7 @@
         <div class="form-group mt-4">
           <label for="currencyTo">Devises (vers)</label>
           <select v-model="updatedPair.currency_to" placeholder="Selectionnez une devise (vers)" class="form-control" required>
-            <option v-for="currency in currencies" :value="currency.code" :key="currency.code">
+            <option v-for="currency in fiteredCurrencies" :value="currency.code" :key="currency.code">
               {{ currency.code }}
             </option>
           </select>
@@ -52,6 +52,14 @@ export default {
     this.updatedPair = { ...this.pair }; // Effectue une copie de la paire pour éviter de modifier la prop directement
     this.fetchCurrencies(); // Appel de la méthode pour récupérer la liste des devises
   },
+  computed:{
+        fiteredCurrencies(){
+            // Filtre dans notre tableau des devises fetched 
+            // On vérifie si le code de la devise sélectionné est différent de la première partie du formulaire ( depuis => this.newPair.CURRENCY_FROM )
+            // La nouvelle liste de devise filtrée est donc retournée sans celle selectionnée dans la première partie, on évite donc de pouvoir la sélectionnée dans les 2 en même temps
+            return this.currencies.filter(currency=> currency.code !== this.newPair.currency_from)
+        }
+    },
   methods: {
     fetchCurrencies() {
       axiosClient.get('http://localhost:8000/api/currencies')
