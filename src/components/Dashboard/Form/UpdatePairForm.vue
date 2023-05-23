@@ -1,5 +1,6 @@
 <template>
     <div>
+    <div v-if="showErrorRandom" class="alert alert-danger mt-4">Une erreur s'est produite, veuillez réessayer.</div>
       <h3>Modifier une paire</h3>
       <form @submit.prevent="updatePair">
         <div class="form-group mt-4">
@@ -46,6 +47,7 @@ export default {
       updatedPair: null,
       currencies: [], // Liste des devises existantes
       selectedCurrency: null, // Devise sélectionnée
+      showErrorRandom: false,
     };
   },
   created() {
@@ -62,7 +64,7 @@ export default {
     },
   methods: {
     fetchCurrencies() {
-      axiosClient.get('http://localhost:8000/api/currencies')
+      axiosClient.get('http://localhost:8000/api/admin/currencies')
         .then(response => {
           this.currencies = response.data;
           this.selectedCurrency = this.pair.currency_from; // Sélectionne la devise de la paire à éditer
@@ -73,7 +75,7 @@ export default {
     },
     updatePair() {
       axiosClient
-        .put(`http://localhost:8000/api/pairs/${this.pair.id}`, {
+        .put(`http://localhost:8000/api/admin/pairs/${this.pair.id}`, {
           currency_from: this.updatedPair.currency_from,
           currency_to: this.updatedPair.currency_to,
           conversion_rate: this.updatedPair.conversion_rate,
@@ -83,8 +85,13 @@ export default {
           this.$emit('pair-updated');
         })
         .catch(error => {
-          console.error(error);
-        });
+              // Gére toutes les erreurs
+              this.showErrorRandom = true,
+                setTimeout(() => {
+                  this.showErrorRandom = false;
+                }, 5000);
+              console.error('Une erreur s\'est produite :', error);
+          });
     },
     cancelUpdate() {
       this.$emit('cancel');

@@ -61,7 +61,7 @@
     },
     methods: {
       fetchCurrencies() {
-        axiosClient.get('http://localhost:8000/api/currencies')
+        axiosClient.get('http://localhost:8000/api/admin/currencies')
           .then(response => {
             this.currencies = response.data;
           })
@@ -71,7 +71,7 @@
       },
       createPair() {
         // Effectuer la requête HTTP pour créer la paire dans le backend
-        axiosClient.post('http://localhost:8000/api/pairs', this.newPair)
+        axiosClient.post('http://localhost:8000/api/admin/pairs', this.newPair)
           .then(response => {
             console.log(response),
             this.$emit('pair-created');

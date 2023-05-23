@@ -82,7 +82,7 @@
     methods: {
       fetchPairs() {
         axiosClient
-          .get('http://localhost:8000/api/pairs')
+          .get('http://localhost:8000/api/admin/pairs')
           .then(response => {
             this.pairs = response.data;
           })
@@ -126,7 +126,7 @@
   
       deletePair(pair) {
         axiosClient
-          .delete(`http://localhost:8000/api/pairs/${pair.id}`)
+          .delete(`http://localhost:8000/api/admin/pairs/${pair.id}`)
           .then(response => {
             console.log(response);
             this.fetchPairs();

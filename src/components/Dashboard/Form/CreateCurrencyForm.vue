@@ -41,7 +41,7 @@
     methods: {
       createCurrency() {
         // Effectuer la requête HTTP pour créer la paire dans le backend
-        axiosClient.post('http://localhost:8000/api/currencies', this.newCurrency)
+        axiosClient.post('http://localhost:8000/api/admin/currencies', this.newCurrency)
           .then(response => {
             console.log(response),
             this.$emit('currency-created');

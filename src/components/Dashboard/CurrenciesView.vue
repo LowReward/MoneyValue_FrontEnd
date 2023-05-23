@@ -79,7 +79,7 @@
     methods: {
       fetchCurrencies() {
         axiosClient
-          .get('http://localhost:8000/api/currencies')
+          .get('http://localhost:8000/api/admin/currencies')
           .then(response => {
             this.currencies = response.data;
           })
@@ -123,7 +123,7 @@
   
       deleteCurrency(currency) {
         axiosClient
-          .delete(`http://localhost:8000/api/currencies/${currency.id}`)
+          .delete(`http://localhost:8000/api/admin/currencies/${currency.id}`)
           .then(response => {
             console.log(response);
             this.fetchCurrencies();

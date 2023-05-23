@@ -45,7 +45,7 @@ export default {
   methods: {
     updateCurrency() {
       axiosClient
-        .put(`http://localhost:8000/api/currencies/${this.updatedCurrency.id}`, {
+        .put(`http://localhost:8000/api/admin/currencies/${this.updatedCurrency.id}`, {
           code: this.updatedCurrency.code,
           name: this.updatedCurrency.name,
         })
