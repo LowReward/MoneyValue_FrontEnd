@@ -4,7 +4,7 @@ import DashboardAdmin  from '../components/Dashboard/DashboardAdmin.vue'
 import CurrenciesView  from '../components/Dashboard/CurrenciesView.vue'
 import PairsView  from '../components/Dashboard/PairsView.vue'
 import PageNotFound  from '../components/PageNotFound.vue'
-import store from '../store';
+//import store from '../store';
 
 const routes = [
   
@@ -50,9 +50,11 @@ const router = createRouter({
   routes
 })
 
+
+///// Idée de départ avec VueX
 // Avant d'atteindre n'importe quelle route
-router.beforeEach(async(to, from, next) => {
-  
+/*router.beforeEach(async(to, from, next) => {
+  console.log(store.state.user.token)
   // Si la prochaine route nécessite d'être authentifié et que le token est absent
   if (to.meta.requiresAuth && !store.state.user.token) {
     // Redirection à la page login pour s'authentifier
@@ -62,8 +64,24 @@ router.beforeEach(async(to, from, next) => {
     // Sinon le processus continue
     next();
   }
-});
+});*/
 
+
+router.beforeEach(async (to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // L'utilisateur est authentifié, le processus continue
+      next();
+    } else {
+      // L'utilisateur n'est pas authentifié, redirection vers la page de connexion
+      next({ name: 'LoginPage' });
+    }
+  } else {
+    // La route n'a pas besoin d'authentification, le processus continue
+    next();
+  }
+});
 
 
 export default router

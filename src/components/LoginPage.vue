@@ -27,7 +27,9 @@
   
 <script>
 import axios from 'axios';
-import store from '../store';
+//import store from '../store';
+
+
 export default {
     name: "LoginPage",
     data() {
@@ -44,9 +46,13 @@ export default {
                 password: this.password
             })
                 .then(response => {
+
+                    /*
                     //Récupération du token dans la réponse et ensuite store dans le state user token ( Vuex )
                     store.state.user.token = response.data.token;
-                    console.log(store.state.user.token);
+                    console.log(store.state.user.token);*/  
+
+                    localStorage.setItem('token', response.data.token);
                     this.$router.push('/admin/dashboard/pairs')
                 })
                 .catch(error => {
