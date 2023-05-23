@@ -1,5 +1,8 @@
 <template>
     <div>
+      
+    <div v-if="showError422" class="alert alert-danger mt-4">Le code pour cette devise existe déjà.</div>
+    <div v-if="showErrorRandom" class="alert alert-danger mt-4">Une erreur s'est produite, veuillez réessayer.</div>
     <div class="d-flex justify-content-between align-items-center mt-5">
         <h2>Ajouter une devise:</h2>
       </div>
@@ -31,6 +34,8 @@
           code: '',
           name: '',
         },
+        showError422: false,
+        showErrorRandom: false,
       };
     },
     methods: {
@@ -43,8 +48,22 @@
             console.log('Devise créée avec succès');
           })
           .catch(error => {
-            // Gérer l'erreur s'il y en a une
-            console.error(error);
+            // Gére l'erreur s'il y en a une
+            if (error.response && error.response.status === 422) {
+              // Gére l'erreur de validation avec le code 422
+              this.showError422 = true,
+                setTimeout(() => {
+                  this.showError422 = false;
+                }, 5000);
+              console.error('Erreur de validation :', error.response.data.errors);
+            } else {
+              // Gére toutes les autres erreurs
+              this.showErrorRandom = true,
+                setTimeout(() => {
+                  this.showErrorRandom = false;
+                }, 5000);
+              console.error('Une erreur s\'est produite :', error);
+            }
           });
       },
       cancelCreate() {
