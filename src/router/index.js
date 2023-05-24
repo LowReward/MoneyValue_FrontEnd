@@ -4,6 +4,7 @@ import DashboardAdmin  from '../components/Dashboard/DashboardAdmin.vue'
 import CurrenciesView  from '../components/Dashboard/CurrenciesView.vue'
 import PairsView  from '../components/Dashboard/PairsView.vue'
 import PageNotFound  from '../components/PageNotFound.vue'
+import ConversionPage  from '../components/ConversionPage.vue'
 //import store from '../store';
 
 const routes = [
@@ -42,7 +43,12 @@ const routes = [
         //meta: {requiresAuth: true},
       }
     ]
-  }
+  },
+  {
+    path: '/',
+    name: 'ConversionPage',
+    component: ConversionPage
+  },
 ]
 
 const router = createRouter({
