@@ -11,13 +11,13 @@
       <!-- Champ pour le code de la devise -->
       <div class="form-group mt-4">
         <label for="currency_code">Code de la Devise:</label>
-        <input class="form-control" id="currency_code" v-model="updatedCurrency.code" required>
+        <input class="form-control" id="currency_code" v-model="updatedCurrency.code" placeholder="EUR...USD..." required>
       </div>
 
       <!-- Champ pour le nom de la devise -->
       <div class="form-group mt-4">
         <label for="currency_name">Nom de la Devise:</label>
-        <input class="form-control" id="currency_name" v-model="updatedCurrency.name" required>
+        <input class="form-control" id="currency_name" v-model="updatedCurrency.name" placeholder="Euros...Dollars Américain..." required>
       </div>
       <div class='mt-4 '>
         <!-- Bouton pour mettre à jour la devise -->

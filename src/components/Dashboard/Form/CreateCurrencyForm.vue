@@ -11,12 +11,12 @@
     <form @submit.prevent="createCurrency">
       <div class="form-group mt-4">
         <label for="currency_code">Code de la Devise:</label>
-        <input class="form-control" id="currency_code" v-model="newCurrency.code" required>
+        <input class="form-control" id="currency_code" v-model="newCurrency.code" placeholder="EUR...USD..." required>
       </div>
 
       <div class="form-group mt-4">
         <label for="currency_name">Nom de la Devise:</label>
-        <input class="form-control" id="currency_name" v-model="newCurrency.name" required>
+        <input class="form-control" id="currency_name" v-model="newCurrency.name" placeholder="Euros...Dollars Américain..." required>
       </div>
 
       <div class='mt-4'>
