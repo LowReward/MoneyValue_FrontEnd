@@ -1,26 +1,35 @@
 <template>
     <div>
+        <!-- Affichage du message d'erreur générique en cas d'erreur -->
+        <div v-if="showErrorRandom" class="alert alert-danger mt-4">Une erreur s'est produite, veuillez réessayer.</div>
+        <!-- Titre du formulaire -->
         <div class="d-flex justify-content-center align-items-center mt-5">
             <h2>Ajouter une paire:</h2>
         </div>
+        <!-- Formulaire pour ajouter une paire -->
         <form @submit.prevent="createPair">
+            <!-- Champ pour la devise de départ -->
             <div class="form-group mt-4">
                 <label for="currencyFrom">Devises (depuis):</label>
                 <select class="form-control" id="currencyFrom" v-model="newPair.currency_from" required>
+                    <!-- Boucle sur les devises pour créer les options du select -->
                     <option v-for="currency in currencies" :key="currency.code" :value="currency.code">
                         {{ currency.name }} ({{ currency.code }})
                     </option>
                 </select>
             </div>
 
+            <!-- Champ pour la devise d'arrivée -->
             <div class="form-group mt-4">
                 <label for="currencyTo">Devises (vers):</label>
                 <select class="form-control" id="currencyTo" v-model="newPair.currency_to" required>
+                    <!-- Boucle sur les devises filtrées pour créer les options du select -->
                     <option v-for="currency in fiteredCurrencies" :key="currency.code" :value="currency.code">
                         {{ currency.name }} ({{ currency.code }})
                     </option>
                 </select>
             </div>
+            <!-- Champ pour le taux de conversion -->
             <div class="form-group mt-4">
                 <label for="conversion_rate">Taux de conversion:</label>
                 <input type="number" class="form-control" id="conversion_rate" placeholder="0" min="0" max="999999"
@@ -28,7 +37,9 @@
             </div>
 
             <div class='mt-4 '>
+                <!-- Bouton pour soumettre le formulaire -->
                 <button type="submit" class="btn btn-primary ">Créer la paire</button>
+                <!-- Bouton pour annuler et revenir en arrière -->
                 <button type="button" class="btn btn-secondary mx-2" @click="cancelCreate">Annuler</button>
             </div>
             <p class="mt-3">La paire inverse sera créee automatiquement</p>
@@ -43,12 +54,16 @@ export default {
     name: 'CreatePairForm',
     data() {
         return {
+            // Tableau contenant la nouvelle pair à créer
             newPair: {
                 currency_from: '',
                 currency_to: '',
                 conversion_rate: '',
             },
-            currencies: []
+            // Tableau contenant les devises
+            currencies: [],
+
+            showErrorRandom: false,
         };
     },
     mounted() {
@@ -73,7 +88,7 @@ export default {
                 });
         },
         createPair() {
-            // Effectuer la requête HTTP pour créer la paire dans le backend
+            // Effectue la requête HTTP pour créer la paire dans le backend
             axiosClient.post('http://localhost:8000/api/admin/pairs', this.newPair)
                 .then(response => {
                     console.log(response),
@@ -81,7 +96,7 @@ export default {
                     this.generateInversePair();
                 })
                 .catch(error => {
-                    // Gérer l'erreur s'il y en a une
+                    // Gére l'erreur s'il y en a une
                     console.error(error);
                 });
         },
@@ -93,7 +108,7 @@ export default {
                 conversion_rate: (1 / this.newPair.conversion_rate).toFixed(2),
             };
 
-            // Envoyer la requête HTTP pour créer la paire inverse
+            // Envoie la requête HTTP pour créer la paire inverse
             axiosClient.post('http://localhost:8000/api/admin/pairs', inversePair)
                 .then(response => {
                     console.log(response);
@@ -101,11 +116,17 @@ export default {
                     console.log('Paire inverse créée avec succès');
                 })
                 .catch(error => {
-                    console.error(error);
+                    // Gére toutes les erreurs
+                    this.showErrorRandom = true,
+                        setTimeout(() => {
+                            this.showErrorRandom = false;
+                        }, 5000);
+                    console.error('Une erreur s\'est produite :', error);
                 });
         },
 
         cancelCreate() {
+            // Émet un événement pour informer le composant parent d'annuler la création de la paire
             this.$emit('cancel');
         },
     }
