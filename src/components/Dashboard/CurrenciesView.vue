@@ -36,8 +36,8 @@
             </table>
 
             <!-- Ajout des boutons de pagination -->
-            <div class="pagination mt-4">
-                <button v-for="page in getPageNumbers()" :key="page" class="btn btn-sm btn-primary"
+            <div class="pagination mt-4 d-flex justify-content-center">
+                <button v-for="page in getPageNumbers()" :key="page" class="btn btn-sm btn-primary mx-1"
                     :class="{ 'active': page === currentPage }" @click="goToPage(page)">
                     {{ page }}
                 </button>
@@ -53,8 +53,7 @@
         <!-- Afficher le formulaire de mise à jour de devise -->
         <template v-if="showUpdateForm">
             <!-- Si showUpdateForm est sur true alors le formulaire vient remplacer le tableau -->
-            <update-currency-form :currency="selectedCurrency" @currency-updated="onCurrencyUpdated"
-                @cancel="cancelUpdate" />
+            <update-currency-form :currency="selectedCurrency" @currency-updated="onCurrencyUpdated" @cancel="cancelUpdate" />
         </template>
     </div>
 </template>
@@ -145,13 +144,13 @@ export default {
         },
 
         paginateCurrencies() {
-            const startIndex = (this.currentPage - 1) * 15;
-            const endIndex = startIndex + 15;
+            const startIndex = (this.currentPage - 1) * 8;
+            const endIndex = startIndex + 8;
             this.paginatedCurrencies = this.currencies.slice(startIndex, endIndex);
         },
 
         getPageNumbers() {
-            const pageCount = Math.ceil(this.currencies.length / 15);
+            const pageCount = Math.ceil(this.currencies.length / 8);
             return Array.from({ length: pageCount }, (_, index) => index + 1);
         },
 

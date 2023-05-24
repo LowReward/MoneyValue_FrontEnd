@@ -21,13 +21,13 @@
                 </thead>
                 <tbody>
                     <!-- itération sur le tableau pairs avec une clé (:key) pour chaque élément de la boucle -->
-                    <tr v-for="pair in pairs" :key="pair.id">
+                    <tr v-for="pair in paginatedPairs" :key="pair.id">
                         <!-- Affiche les devises contenues dans chaque élément -->
                         <td>{{ pair.currency_from }} - {{ pair.currency_to }}</td>
                         <!-- Affiche le nombre de requêtes aux pairs dans chaque élément -->
                         <td>{{ pair.request_count }}</td>
                         <td>
-                            <!-- À venir -->
+                            <!-- Bouton pour modifier une devise -->
                             <button class="btn btn-sm btn-primary " @click="editPair(pair)">Modifier</button>
                             <!-- Appel de la fonction deletePair avec la clé de l'élément en question -->
                             <button class="btn btn-sm btn-danger mx-2" @click="deletePair(pair)">Supprimer</button>
@@ -35,6 +35,14 @@
                     </tr>
                 </tbody>
             </table>
+            <!-- Ajout des boutons de pagination -->
+            <div class="pagination mt-4 d-flex justify-content-center">
+                <button v-for="page in getPageNumbers()" :key="page" class="btn btn-sm btn-primary mx-1"
+                    :class="{ 'active': page === currentPage }" @click="goToPage(page)">
+                    {{ page }}
+                </button>
+            </div>
+
         </template>
         <!-- Afficher le formulaire de création de paire -->
         <template v-if="showCreateForm">
@@ -50,7 +58,7 @@
         </template>
     </div>
 </template>
-  
+
 <script>
 import axiosClient from '../../plugins/axios.js';
 import CreatePairForm from './Form/CreatePairForm.vue';
@@ -67,16 +75,29 @@ export default {
             showConfirmationCreated: false, // Indicateur pour afficher ou masquer la confirmation de création de paire
             showConfirmationUpdated: false, // Indicateur pour afficher ou masquer la confirmation de mise à jour de paire
             showConfirmationDelete: false, // Indicateur pour afficher ou masquer la confirmation de suppression de paire
+            showErrorRandom: false, // Indicateur d'erreur aléatoire
+            currentPage: 1, // Page actuelle
         };
     },
 
     mounted() {
         this.fetchPairs(); // Appelle la méthode fetchPairs lors du montage du composant
+        this.paginatePairs(); // Pagination initiale
     },
 
     components: {
         CreatePairForm, // Composant enfant CreatePairForm utilisé pour créer une nouvelle paire
         UpdatePairForm, // Composant enfant UpdatePairForm utilisé pour mettre à jour une paire existante
+    },
+
+    watch: {
+        pairs() {
+            this.paginatePairs();
+        },
+
+        currentPage() {
+            this.paginatePairs();
+        },
     },
 
     methods: {
@@ -123,6 +144,21 @@ export default {
             this.showUpdateForm = false; // Annule la mise à jour et masque le formulaire de mise à jour de paire
         },
 
+        paginatePairs() {
+            const startIndex = (this.currentPage - 1) * 8;
+            const endIndex = startIndex + 8;
+            this.paginatedPairs = this.pairs.slice(startIndex, endIndex);
+        },
+
+        getPageNumbers() {
+            const pageCount = Math.ceil(this.pairs.length / 8);
+            return Array.from({ length: pageCount }, (_, index) => index + 1);
+        },
+
+        goToPage(page) {
+            this.currentPage = page;
+        },
+
 
         deletePair(pair) {
             axiosClient
@@ -136,19 +172,14 @@ export default {
                     }, 3000);
                 })
                 .catch(error => {
-                    console.error(error); // Affiche une erreur en cas d'échec de la requête
+                    // Gérer toutes les erreurs
+                    this.showErrorRandom = true; // Affiche l'erreur aléatoire
+                    setTimeout(() => {
+                        this.showErrorRandom = false; // Cache l'erreur après 5 secondes
+                    }, 5000);
+                    console.error("Une erreur s'est produite :", error);
                 });
         },
     },
 };
 </script>
-  
-<style>
-/* Ajustement de l'apparence du router-view */
-.router-view-container {
-    min-height: 300px;
-    /* Hauteur minimale souhaitée */
-    padding: 20px;
-    /* Espace intérieur pour le contenu */
-}
-</style>
