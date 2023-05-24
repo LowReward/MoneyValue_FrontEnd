@@ -7,16 +7,17 @@
             </div>
         </nav>
 
+
+        <!-- Affichage d'une alerte d'erreur en cas d'échec de requête -->
+        <div v-if="showErrorRandom" class="alert alert-danger mt-4">An error has occurred, please
+            try again.</div>
         <div class="container mt-5">
-            <div class="row justify-content-center">
+            <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
                 <div class="col-md-6">
-                    <!-- Affichage d'une alerte d'erreur en cas d'échec de requête -->
-                    <div v-if="showErrorRandom" class="alert alert-danger mt-4">Une erreur s'est produite, veuillez
-                        réessayer.</div>
-                    <h2 class="text-center">Currency converter</h2>
+                    <h2>Currency converter</h2>
 
                     <!-- Formulaire de conversion -->
-                    <div class="d-flex justify-content-between mt-5">
+                    <div class=" form-group mt-4">
                         <!-- Sélection de la devise source -->
                         <div class="form-group">
                             <label for="pairFrom">Currency From :</label>
@@ -28,7 +29,7 @@
                         </div>
 
                         <!-- Sélection de la devise cible -->
-                        <div class="form-group">
+                        <div class="form-group mt-4">
                             <label for="pairTo">Currency To :</label>
                             <select id="pairTo" class="form-control" v-model="selectedPairTo" required>
                                 <option v-for="currency in filteredCurrenciesTo" :key="currency" :value="currency">{{
@@ -37,14 +38,14 @@
                         </div>
 
                         <!-- Saisie du montant à convertir -->
-                        <div class="form-group">
+                        <div class="form-group mt-4">
                             <label for="amount">Amount to convert :</label>
-                            <input id="amount" class="form-control" type="number" v-model="amount" min="0.000000" max="999999"
-                                pattern="^[0-9]+(\.[0-9]{1,6})?$" step="0.000001" required />
+                            <input id="amount" class="form-control" type="number" v-model="amount" min="0.000000"
+                                max="999999" pattern="^[0-9]+(\.[0-9]{1,6})?$" step="0.000001" required />
                         </div>
 
                         <!-- Bouton de conversion -->
-                        <button class="btn btn-primary" @click="convert">Convert</button>
+                        <button class="btn btn-primary mt-4" @click="convert">Convert</button>
                     </div>
 
                     <!-- Affichage du résultat de conversion -->
@@ -58,11 +59,12 @@
         <!-- Pied de page -->
         <footer class="footer mt-5"
             style="background-color: #f8f9fa; padding: 20px 0; bottom: 0; position: fixed; width: 100%;">
-            <div class="container text-center">
+            <div class="container ">
                 <p>Welcome to MoneyValue, the currency conversion platform designed specifically for
                     developers. Access our free and powerful REST API to perform currency conversions
                     with ease just here :</p>
-                <a href="https://documenter.getpostman.com/view/27411059/2s93m5zgoi" target="_blank" alt='Open tab to Api Documentation Page'>Click on me</a>
+                <a href="https://documenter.getpostman.com/view/27411059/2s93m5zgoi" target="_blank"
+                    alt='Open tab to Api Documentation Page'>Click on me</a>
             </div>
         </footer>
     </div>

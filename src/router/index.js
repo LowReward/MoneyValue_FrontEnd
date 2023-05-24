@@ -17,7 +17,7 @@ const routes = [
     component: PageNotFound
   },
   {
-    path: '/login',
+    path: '/admin/login',
     name: 'LoginPage',
     component: LoginPage
   },

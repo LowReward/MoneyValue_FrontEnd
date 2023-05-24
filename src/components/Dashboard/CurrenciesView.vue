@@ -116,12 +116,19 @@ export default {
                     this.currencies = response.data; // Assigne les devises à la propriété currencies
                 })
                 .catch(error => {
-                    // Gérer toutes les erreurs
-                    this.showErrorRandom = true; // Affiche l'erreur aléatoire
-                    setTimeout(() => {
-                        this.showErrorRandom = false; // Cache l'erreur après 5 secondes
-                    }, 5000);
-                    console.error("An error has occurred:", error);
+                    // Gére l'erreur s'il y en a une
+                    if (error.response && error.response.status === 401) {
+                        // Gére l'erreur de validation avec le code 401
+                        console.error('Your token is expired:', error.response.data.errors);
+                        this.$router.push('/admin/login');
+                    } else {
+                        // Gére toutes les autres erreurs
+                        this.showErrorRandom = true, // Affiche l'erreur aléatoire correspondante
+                            setTimeout(() => {
+                                this.showErrorRandom = false; // Masque l'erreur après quelques secondes
+                            }, 5000);
+                        console.error('An error has occurred:', error);
+                    }
                 });
         },
 
