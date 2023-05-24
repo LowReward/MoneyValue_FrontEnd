@@ -2,7 +2,7 @@
     <div>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         
-        <div class="collapse navbar-collapse text-center" id="navbarNav">
+        <div class="container">
             <a class="navbar-brand mx-auto" href="#">Dashboard MoneyValue</a>
           <ul class="navbar-nav mx-auto">
             <li class="nav-item">
@@ -30,6 +30,7 @@
       </div>
     </footer>
   </template>
+  
   
   
   
