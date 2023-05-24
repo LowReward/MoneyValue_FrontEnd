@@ -6,6 +6,10 @@
                 <a class="navbar-brand mx-auto" href="#">Dashboard MoneyValue</a>
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
+                        <!-- Lien pour accéder à l'accueil' -->
+                        <router-link class="nav-link" to="/">Accueil</router-link>
+                    </li>
+                    <li class="nav-item">
                         <!-- Lien pour accéder à la vue des Pairs -->
                         <router-link class="nav-link" to="/admin/dashboard/pairs">Paires</router-link>
                     </li>

@@ -47,7 +47,7 @@ const routes = [
   },
   {
     path: '/admin',
-    redirect: '/admin/dashboard/pair'
+    redirect: '/admin/dashboard/pairs'
   },
   {
     path: '/',
