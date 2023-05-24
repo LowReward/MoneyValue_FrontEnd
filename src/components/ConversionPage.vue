@@ -125,11 +125,11 @@ export default {
             this.selectedPairTo = ''; // Réinitialisation de la devise de retour sélectionnée lors du changement de la devise de départ
         },
         convert() {
-            /*if (!this.selectedPairFrom || !this.selectedPairTo || !this.amount) {
+            if (!this.selectedPairFrom || !this.selectedPairTo || !this.amount) {
                 // Vérification si les champs sont vides
                 alert('Veuillez sélectionner les devises et saisir un montant valide.');
                 return;
-            }*/
+            }
             const payload = {
                 from_currency: this.selectedPairFrom, // Devise de départ sélectionnée
                 to_currency: this.selectedPairTo, // Devise de retour sélectionnée
