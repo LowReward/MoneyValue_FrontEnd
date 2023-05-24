@@ -2,14 +2,14 @@
     <div>
         <!-- Afficher la liste des paires si showCreateForm et showUpdateForm sont sur false -->
         <template v-if="!showCreateForm && !showUpdateForm">
-            <div v-if="showConfirmationCreated" class="alert alert-success mt-4">Devise créee avec succès.</div>
+            <div v-if="showConfirmationCreated" class="alert alert-success mt-4">Devise créée avec succès.</div>
             <div v-if="showConfirmationUpdated" class="alert alert-success mt-4">Devise modifiée avec succès.</div>
             <div v-if="showConfirmationDeleted" class="alert alert-danger mt-4">Devise supprimée avec succès.</div>
             <!-- Affichage du message d'erreur générique en cas d'erreur -->
             <div v-if="showErrorRandom" class="alert alert-danger mt-4">Une erreur s'est produite, veuillez réessayer.</div>
             <div class="d-flex justify-content-center align-items-center mt-5">
                 <h2>Liste des devises:</h2>
-                <!-- Appel de la méthode toggleCreateForm pour afficher le form de création de paire -->
+                <!-- Appel de la méthode toggleCreateForm pour afficher le formulaire de création de devise -->
                 <button class="btn btn-primary mx-5" @click="toggleCreateForm">Ajouter une devise</button>
             </div>
             <table class="table  mt-5">
@@ -21,30 +21,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- itération sur le tableau pairs avec une clé (:key) pour chaque élément de la boucle -->
-                    <tr v-for="currency in currencies" :key="currency.id">
+                    <!-- Itération sur le tableau paginatedCurrencies avec une clé (:key) pour chaque élément de la boucle -->
+                    <tr v-for="currency in paginatedCurrencies" :key="currency.id">
                         <!-- Affiche les devises contenues dans chaque élément -->
                         <td>{{ currency.name }} - {{ currency.code }}</td>
                         <td>
                             <!-- Bouton pour modifier une devise -->
-                            <button class="btn btn-sm btn-primary " @click="editCurrency(currency)">Modifier</button>
-                            <!-- Appel de la fonction deletePair avec la clé de l'élément en question -->
+                            <button class="btn btn-sm btn-primary" @click="editCurrency(currency)">Modifier</button>
+                            <!-- Appel de la fonction deleteCurrency avec la clé de l'élément en question -->
                             <button class="btn btn-sm btn-danger mx-2" @click="deleteCurrency(currency)">Supprimer</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+
+            <!-- Ajout des boutons de pagination -->
+            <div class="pagination mt-4">
+                <button v-for="page in getPageNumbers()" :key="page" class="btn btn-sm btn-primary"
+                    :class="{ 'active': page === currentPage }" @click="goToPage(page)">
+                    {{ page }}
+                </button>
+            </div>
         </template>
-        <!-- Afficher le formulaire de création de paire -->
+
+        <!-- Afficher le formulaire de création de devise -->
         <template v-if="showCreateForm">
-            <!-- Si showCreateForm est sur true alors le form vient remplacer le tableau, une fois l'event pair-created
-          reçu de notre CreatePairForm.vue, alors showCreateForm passe à false via la fonction onPairCreated-->
+            <!-- Si showCreateForm est sur true alors le formulaire vient remplacer le tableau -->
             <create-currency-form @currency-created="onCurrencyCreated" @cancel="toggleCreateForm" />
         </template>
-        <!-- Afficher le formulaire de mise à jour de paire -->
+
+        <!-- Afficher le formulaire de mise à jour de devise -->
         <template v-if="showUpdateForm">
-            <!-- Si showUpdateForm est sur true alors le form vient remplacer le tableau, une fois l'event pair-updated
-          reçu de notre UpdatePairForm.vue, alors showUpdateForm passe à false via la fonction onPairUpdated-->
+            <!-- Si showUpdateForm est sur true alors le formulaire vient remplacer le tableau -->
             <update-currency-form :currency="selectedCurrency" @currency-updated="onCurrencyUpdated"
                 @cancel="cancelUpdate" />
         </template>
@@ -68,16 +76,28 @@ export default {
             showConfirmationUpdated: false, // Indicateur de confirmation de mise à jour
             showConfirmationDeleted: false, // Indicateur de confirmation de suppression
             showErrorRandom: false, // Indicateur d'erreur aléatoire
+            currentPage: 1, // Page actuelle
         };
     },
 
     mounted() {
         this.fetchCurrencies(); // Récupérer les devises lors du montage du composant
+        this.paginateCurrencies(); // Pagination initiale
     },
 
     components: {
         CreateCurrencyForm, // Composant enfant CreateCurrencyForm utilisé pour créer une nouvelle devise
         UpdateCurrencyForm, // Composant enfant UpdateCurrencyForm utilisé pour mettre à jour une devise existante
+    },
+
+    watch: {
+        currencies() {
+            this.paginateCurrencies();
+        },
+
+        currentPage() {
+            this.paginateCurrencies();
+        },
     },
 
     methods: {
@@ -99,7 +119,7 @@ export default {
 
         onCurrencyCreated() {
             this.showCreateForm = false; // Masque le formulaire de création
-            this.fetchCurrencies(); // Récupére à nouveau les devises pour afficher la mise à jour de la liste
+            this.fetchCurrencies(); // Récupérer à nouveau les devises pour afficher la mise à jour de la liste
             this.showConfirmationCreated = true; // Affiche le message de confirmation de création
             setTimeout(() => {
                 this.showConfirmationCreated = false; // Cache le message de confirmation après 3 secondes
@@ -113,18 +133,31 @@ export default {
 
         onCurrencyUpdated() {
             this.showUpdateForm = false; // Masque le formulaire de mise à jour
-            this.fetchCurrencies(); // Récupére à nouveau les devises pour afficher la mise à jour de la liste
+            this.fetchCurrencies(); // Récupérer à nouveau les devises pour afficher la mise à jour de la liste
             this.showConfirmationUpdated = true; // Affiche le message de confirmation de mise à jour
             setTimeout(() => {
                 this.showConfirmationUpdated = false; // Cache le message de confirmation après 3 secondes
             }, 3000);
         },
 
-
         cancelUpdate() {
             this.showUpdateForm = false; // Masque le formulaire de mise à jour en cas d'annulation
         },
 
+        paginateCurrencies() {
+            const startIndex = (this.currentPage - 1) * 15;
+            const endIndex = startIndex + 15;
+            this.paginatedCurrencies = this.currencies.slice(startIndex, endIndex);
+        },
+
+        getPageNumbers() {
+            const pageCount = Math.ceil(this.currencies.length / 15);
+            return Array.from({ length: pageCount }, (_, index) => index + 1);
+        },
+
+        goToPage(page) {
+            this.currentPage = page;
+        },
 
         deleteCurrency(currency) {
             // Supprime une devise en appelant l'API
@@ -132,19 +165,19 @@ export default {
                 .delete(`http://localhost:8000/api/admin/currencies/${currency.id}`)
                 .then(response => {
                     console.log(response);
-                    this.fetchCurrencies(); // Récupére à nouveau les devises pour afficher la mise à jour de la liste
+                    this.fetchCurrencies(); // Récupérer à nouveau les devises pour afficher la mise à jour de la liste
                     this.showConfirmationDeleted = true; // Affiche le message de confirmation de suppression
                     setTimeout(() => {
                         this.showConfirmationDeleted = false; // Cache le message de confirmation après 3 secondes
                     }, 3000);
                 })
                 .catch(error => {
-                    // Gére toutes les erreurs
-                    this.showErrorRandom = true, // Affiche l'erreur aléatoire
-                        setTimeout(() => {
-                            this.showErrorRandom = false; // Cache l'erreur après 5 secondes
-                        }, 5000);
-                    console.error('Une erreur s\'est produite :', error);
+                    // Gérer toutes les erreurs
+                    this.showErrorRandom = true; // Affiche l'erreur aléatoire
+                    setTimeout(() => {
+                        this.showErrorRandom = false; // Cache l'erreur après 5 secondes
+                    }, 5000);
+                    console.error("Une erreur s'est produite :", error);
                 });
         },
     },
