@@ -127,7 +127,7 @@ export default {
         convert() {
             if (!this.selectedPairFrom || !this.selectedPairTo || !this.amount) {
                 // Vérification si les champs sont vides
-                alert('Veuillez sélectionner les devises et saisir un montant valide.');
+                alert('Please select the currencies and enter a valid amount.');
                 return;
             }
             const payload = {
