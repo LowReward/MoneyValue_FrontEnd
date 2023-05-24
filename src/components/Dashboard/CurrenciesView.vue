@@ -106,7 +106,7 @@
         this.showUpdateForm = true;
       },
   
-      onPairUpdated() {
+      onCurrencyUpdated() {
         this.showUpdateForm = false;
         this.fetchCurrencies();
         this.showConfirmationUpdated = true;
