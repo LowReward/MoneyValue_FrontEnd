@@ -5,10 +5,10 @@
         <div v-if="showConfirmationCreated" class="alert alert-success mt-4">Devise créee avec succès.</div>
         <div v-if="showConfirmationUpdated" class="alert alert-success mt-4">Devise modifiée avec succès.</div>
         <div v-if="showConfirmationDeleted" class="alert alert-danger mt-4">Devise supprimée avec succès.</div>
-        <div class="d-flex justify-content-between align-items-center mt-5">
+        <div class="d-flex justify-content-center align-items-center mt-5">
           <h2>Liste des devises:</h2>
           <!-- Appel de la méthode toggleCreateForm pour afficher le form de création de paire -->
-          <button class="btn btn-primary " @click="toggleCreateForm">Ajouter une devise</button>
+          <button class="btn btn-primary mx-5" @click="toggleCreateForm">Ajouter une devise</button>
         </div>
         <table class="table  mt-5">
           <!-- Contenu du tableau -->
@@ -27,7 +27,7 @@
                 <!-- À venir -->
                 <button class="btn btn-sm btn-primary " @click="editCurrency(currency)">Modifier</button>
                 <!-- Appel de la fonction deletePair avec la clé de l'élément en question -->
-                <button class="btn btn-sm btn-danger" @click="deleteCurrency(currency)">Supprimer</button>
+                <button class="btn btn-sm btn-danger mx-2" @click="deleteCurrency(currency)">Supprimer</button>
               </td>
             </tr>
           </tbody>

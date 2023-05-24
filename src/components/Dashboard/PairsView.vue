@@ -5,10 +5,10 @@
         <div v-if="showConfirmationCreated" class="alert alert-success mt-4">Paires ajoutées avec succès.</div>
         <div v-if="showConfirmationUpdated" class="alert alert-success mt-4">Paire modifiée avec succès.</div>
         <div v-if="showConfirmationDelete" class="alert alert-danger mt-4">Paire supprimée avec succès.</div>
-        <div class="d-flex justify-content-between align-items-center mt-5 ">
+        <div class="d-flex justify-content-center align-items-center mt-5 ">
           <h2>Liste des paires:</h2>
           <!-- Appel de la méthode toggleCreateForm pour afficher le form de création de paire -->
-          <button class="btn btn-primary" @click="toggleCreateForm">Ajouter une paire</button>
+          <button class="btn btn-primary mx-5" @click="toggleCreateForm">Ajouter une paire</button>
         </div>
         <table class="table mt-4">
           <!-- Contenu du tableau -->
@@ -30,7 +30,7 @@
                 <!-- À venir -->
                 <button class="btn btn-sm btn-primary " @click="editPair(pair)">Modifier</button>
                 <!-- Appel de la fonction deletePair avec la clé de l'élément en question -->
-                <button class="btn btn-sm btn-danger" @click="deletePair(pair)">Supprimer</button>
+                <button class="btn btn-sm btn-danger mx-2" @click="deletePair(pair)">Supprimer</button>
               </td>
             </tr>
           </tbody>
