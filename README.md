@@ -4,6 +4,8 @@
 
 Link to the MoneyValue Back-End project : https://github.com/LowReward/MoneyValue
 
+/admin to be redirected to the admin Dashboard
+
 ## Project setup
 
 ```
