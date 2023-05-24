@@ -59,7 +59,7 @@ export default {
             // Filtre dans notre tableau des devises fetched 
             // On vérifie si le code de la devise sélectionné est différent de la première partie du formulaire ( depuis => this.newPair.CURRENCY_FROM )
             // La nouvelle liste de devise filtrée est donc retournée sans celle selectionnée dans la première partie, on évite donc de pouvoir la sélectionnée dans les 2 en même temps
-            return this.currencies.filter(currency=> currency.code !== this.newPair.currency_from)
+            return this.currencies.filter(currency=> currency.code !== this.updatedPair.currency_from)
         }
     },
   methods: {

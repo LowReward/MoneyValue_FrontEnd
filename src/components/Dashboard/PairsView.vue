@@ -2,7 +2,7 @@
     <div>
       <!-- Afficher la liste des paires si showCreateForm et showUpdateForm sont sur false -->
       <template v-if="!showCreateForm && !showUpdateForm">
-        <div v-if="showConfirmationCreated" class="alert alert-success mt-4">Paire ajoutée avec succès.</div>
+        <div v-if="showConfirmationCreated" class="alert alert-success mt-4">Paires ajoutées avec succès.</div>
         <div v-if="showConfirmationUpdated" class="alert alert-success mt-4">Paire modifiée avec succès.</div>
         <div v-if="showConfirmationDelete" class="alert alert-danger mt-4">Paire supprimée avec succès.</div>
         <div class="d-flex justify-content-between align-items-center mt-5 ">

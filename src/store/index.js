@@ -13,5 +13,7 @@ export default createStore({
       token: null
     }
   },
-  plugins: [createPersistedState()]
+  plugins: [createPersistedState({
+    paths: ['user.token']
+  })]
 });

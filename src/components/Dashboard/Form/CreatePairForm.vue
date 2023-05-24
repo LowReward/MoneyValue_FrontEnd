@@ -1,6 +1,6 @@
 <template>
     <div>
-    <div class="d-flex justify-content-between align-items-center mt-5">
+    <div class="d-flex justify-content-center align-items-center mt-5">
         <h2>Ajouter une paire:</h2>
       </div>
       <form @submit.prevent="createPair">
@@ -29,6 +29,7 @@
         <div class='mt-4 '>
         <button type="submit" class="btn btn-primary " >Créer la paire</button>
         <button type="button" class="btn btn-secondary mx-2" @click="cancelCreate">Annuler</button></div>
+        <p class="mt-3">La paire inverse sera créee automatiquement</p>
       </form>
     </div>
   </template>
@@ -70,18 +71,38 @@
           });
       },
       createPair() {
-        // Effectuer la requête HTTP pour créer la paire dans le backend
-        axiosClient.post('http://localhost:8000/api/admin/pairs', this.newPair)
-          .then(response => {
-            console.log(response),
-            this.$emit('pair-created');
-            console.log('Paire créée avec succès');
-          })
-          .catch(error => {
-            // Gérer l'erreur s'il y en a une
-            console.error(error);
-          });
-      },
+              // Effectuer la requête HTTP pour créer la paire dans le backend
+              axiosClient.post('http://localhost:8000/api/admin/pairs', this.newPair)
+                  .then(response => {
+                      console.log(response),
+                      console.log('Paire créée avec succès');
+                      this.generateInversePair();
+                  })
+                  .catch(error => {
+                      // Gérer l'erreur s'il y en a une
+                      console.error(error);
+                  });
+          },
+
+          generateInversePair() {
+              const inversePair = {
+                  currency_from: this.newPair.currency_to,
+                  currency_to: this.newPair.currency_from,
+                  conversion_rate: (1 / this.newPair.conversion_rate).toFixed(2),
+              };
+
+              // Envoyer la requête HTTP pour créer la paire inverse
+              axiosClient.post('http://localhost:8000/api/admin/pairs', inversePair)
+                  .then(response => {
+                      console.log(response);
+                      this.$emit('pair-created');
+                      console.log('Paire inverse créée avec succès');
+                  })
+                  .catch(error => {
+                      console.error(error);
+                  });
+          },
+      
       cancelCreate() {
       this.$emit('cancel');
     },
