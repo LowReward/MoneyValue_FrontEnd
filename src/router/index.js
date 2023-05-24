@@ -26,6 +26,7 @@ const routes = [
     path: '/admin/dashboard',
     name: 'DashboardAdmin',
     component: DashboardAdmin,
+    redirect: '/admin/dashboard/pairs',
     // Spécifie que la route a besoin d'une authentification
     meta: {requiresAuth: true},
     // Routes enfants du dashboard
@@ -43,6 +44,10 @@ const routes = [
         //meta: {requiresAuth: true},
       }
     ]
+  },
+  {
+    path: '/admin',
+    redirect: '/admin/dashboard/pair'
   },
   {
     path: '/',
