@@ -39,17 +39,18 @@
                         <!-- Saisie du montant à convertir -->
                         <div class="form-group">
                             <label for="amount">Amount to convert :</label>
-                            <input id="amount" class="form-control" type="number" v-model="amount" min="0" max="999999"
-                                pattern="^[0-9]+(\.[0-9]{1,2})?$" step="0.01" required />
+                            <input id="amount" class="form-control" type="number" v-model="amount" min="0.000000" max="999999"
+                                pattern="^[0-9]+(\.[0-9]{1,6})?$" step="0.000001" required />
                         </div>
 
                         <!-- Bouton de conversion -->
                         <button class="btn btn-primary" @click="convert">Convert</button>
                     </div>
 
-                    <!-- Affichage du résultat de conversion -->
+                    <!-- Affichage du résultat de conversion avec uniquement 6 chiffres après la virgule
+                    dans des cas EUR vers BTC ca peut être utile puisque le conversion est très faible [1 EUR = 0,000041 BTC]-->
                     <div v-if="conversionResult" class="text-center mt-4">
-                        Conversion result : {{ conversionResult.toFixed(3) }}
+                        Conversion result : {{ conversionResult.toFixed(6) }}
                     </div>
                 </div>
             </div>

@@ -32,8 +32,8 @@
             <!-- Champ pour le taux de conversion -->
             <div class="form-group mt-4">
                 <label for="conversion_rate">Taux de conversion:</label>
-                <input type="number" class="form-control" id="conversion_rate" placeholder="0" min="0" max="999999"
-                    pattern="^[0-9]+(\.[0-9]{1,2})?$" step="0.01" v-model="newPair.conversion_rate" required>
+                <input type="number" class="form-control" id="conversion_rate" placeholder="0" min="0.000000" max="999999"
+                    pattern="^[0-9]+(\.[0-9]{1,6})?$" step="0.000001" v-model="newPair.conversion_rate" required>
             </div>
 
             <div class='mt-4 '>
