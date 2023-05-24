@@ -9,11 +9,11 @@
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <h2 class="text-center">Convertisseur de devises</h2>
+                    <h2 class="text-center">Currency converter</h2>
 
                     <div class="d-flex justify-content-between mt-5">
                         <div class="form-group">
-                            <label for="pairFrom">Devises de départ</label>
+                            <label for="pairFrom">Currency From :</label>
                             <select id="pairFrom" class="form-control" v-model="selectedPairFrom" @change="filterPairs"
                                 required>
                                 <option v-for="currency in uniqueCurrenciesFrom" :key="currency" :value="currency">{{
@@ -22,7 +22,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="pairTo">Devises de retour</label>
+                            <label for="pairTo">Currency To :</label>
                             <select id="pairTo" class="form-control" v-model="selectedPairTo" required>
                                 <option v-for="currency in filteredCurrenciesTo" :key="currency" :value="currency">{{
                                     currency }}</option>
@@ -30,16 +30,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="amount">Montant à convertir</label>
+                            <label for="amount">Amount to convert :</label>
                             <input id="amount" class="form-control" type="number" v-model="amount" min="0" max="999999"
                                 pattern="^[0-9]+(\.[0-9]{1,2})?$" step="0.01" required />
                         </div>
 
-                        <button class="btn btn-primary" @click="convert">Convertir</button>
+                        <button class="btn btn-primary" @click="convert">Convert</button>
                     </div>
 
                     <div v-if="conversionResult" class="text-center mt-4">
-                        Résultat de la conversion : {{ conversionResult.toFixed(3) }}
+                        Conversion result : {{ conversionResult.toFixed(3) }}
                     </div>
                 </div>
             </div>
@@ -48,9 +48,10 @@
         <footer class="footer mt-5"
             style="background-color: #f8f9fa; padding: 20px 0; bottom: 0; position: fixed; width: 100%;">
             <div class="container text-center">
-                <p>Bienvenue sur MoneyValue, la plateforme de conversion monétaire conçue spécialement pour les
-                    développeurs. Accédez à notre API REST puissante et gratuite pour effectuer des conversions de devises
-                    en toute simplicité.</p>
+                <p>Welcome to MoneyValue, the currency conversion platform designed specifically for
+                    developers. Access our free and powerful REST API to perform currency conversions
+                    with ease just :</p>
+                    <a href="https://documenter.getpostman.com/view/27411059/2s93m5zgoi" target="_blank">here</a>
             </div>
         </footer>
     </div>
