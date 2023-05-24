@@ -37,11 +37,17 @@
 
             <!-- Ajout des boutons de pagination -->
             <div class="pagination mt-4 d-flex justify-content-center">
+                <!-- Utilisation d'une boucle v-for pour générer les boutons -->
+                <!-- La méthode getPageNumbers() retourne une liste des numéros de page, 
+                ajoute la classe active au bouton de la page courante, en fonction de la valeur de currentPage
+                et goToPage(page) est déclenché lorsqu'un bouton de pagination est cliqué-->
                 <button v-for="page in getPageNumbers()" :key="page" class="btn btn-sm btn-primary mx-1"
                     :class="{ 'active': page === currentPage }" @click="goToPage(page)">
+                    <!-- Affichage du numéro de page -->
                     {{ page }}
                 </button>
             </div>
+
         </template>
 
         <!-- Afficher le formulaire de création de devise -->
@@ -53,7 +59,8 @@
         <!-- Afficher le formulaire de mise à jour de devise -->
         <template v-if="showUpdateForm">
             <!-- Si showUpdateForm est sur true alors le formulaire vient remplacer le tableau -->
-            <update-currency-form :currency="selectedCurrency" @currency-updated="onCurrencyUpdated" @cancel="cancelUpdate" />
+            <update-currency-form :currency="selectedCurrency" @currency-updated="onCurrencyUpdated"
+                @cancel="cancelUpdate" />
         </template>
     </div>
 </template>
@@ -144,17 +151,23 @@ export default {
         },
 
         paginateCurrencies() {
+            // Calcul de l'indice de début et de fin pour la pagination en fonction de la page actuelle
             const startIndex = (this.currentPage - 1) * 8;
             const endIndex = startIndex + 8;
+
+            // Extraction des paires paginées à partir du tableau original
             this.paginatedCurrencies = this.currencies.slice(startIndex, endIndex);
         },
 
         getPageNumbers() {
+            // Calcul du nombre total de pages en fonction du nombre de paires et de la taille de pagination
             const pageCount = Math.ceil(this.currencies.length / 8);
+            // Création d'un tableau contenant les numéros de page de 1 à pageCount
             return Array.from({ length: pageCount }, (_, index) => index + 1);
         },
 
         goToPage(page) {
+            // Mise à jour de la page actuelle lorsque l'utilisateur clique sur un bouton de pagination
             this.currentPage = page;
         },
 
@@ -176,7 +189,7 @@ export default {
                     setTimeout(() => {
                         this.showErrorRandom = false; // Cache l'erreur après 5 secondes
                     }, 5000);
-                    console.error("Une erreur s'est produite :", error);
+                    console.error("An error has occurred:", error);
                 });
         },
     },
