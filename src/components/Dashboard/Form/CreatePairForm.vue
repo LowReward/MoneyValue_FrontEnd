@@ -84,7 +84,12 @@ export default {
                     this.currencies = response.data;
                 })
                 .catch(error => {
-                    console.error(error);
+                    // Gérer toutes les erreurs
+                    this.showErrorRandom = true; // Affiche l'erreur aléatoire
+                    setTimeout(() => {
+                        this.showErrorRandom = false; // Cache l'erreur après 5 secondes
+                    }, 5000);
+                    console.error("An error has occurred:", error);
                 });
         },
         createPair() {
@@ -92,7 +97,7 @@ export default {
             axiosClient.post('http://localhost:8000/api/admin/pairs', this.newPair)
                 .then(response => {
                     console.log(response),
-                        console.log('Paire créée avec succès');
+                        console.log('Pair created with success');
                     this.generateInversePair();
                 })
                 .catch(error => {
@@ -113,15 +118,15 @@ export default {
                 .then(response => {
                     console.log(response);
                     this.$emit('pair-created');
-                    console.log('Paire inverse créée avec succès');
+                    console.log('Successfully created inverse pair');
                 })
                 .catch(error => {
-                    // Gére toutes les erreurs
-                    this.showErrorRandom = true,
-                        setTimeout(() => {
-                            this.showErrorRandom = false;
-                        }, 5000);
-                    console.error('Une erreur s\'est produite :', error);
+                    // Gérer toutes les erreurs
+                    this.showErrorRandom = true; // Affiche l'erreur aléatoire
+                    setTimeout(() => {
+                        this.showErrorRandom = false; // Cache l'erreur après 5 secondes
+                    }, 5000);
+                    console.error("An error has occurred:", error);
                 });
         },
 

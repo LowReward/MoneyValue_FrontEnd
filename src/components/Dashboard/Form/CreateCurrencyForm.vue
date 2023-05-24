@@ -8,12 +8,15 @@
     <div class="d-flex justify-content-between align-items-center mt-5">
       <h2>Ajouter une devise:</h2>
     </div>
+    <!-- Formulaire pour ajouter une devise -->
     <form @submit.prevent="createCurrency">
+      <!-- Champ pour le code de la devise -->
       <div class="form-group mt-4">
         <label for="currency_code">Code de la Devise:</label>
         <input class="form-control" id="currency_code" v-model="newCurrency.code" placeholder="EUR...USD..." required>
       </div>
 
+      <!-- Champ pour le nom de la devise -->
       <div class="form-group mt-4">
         <label for="currency_name">Nom de la Devise:</label>
         <input class="form-control" id="currency_name" v-model="newCurrency.name" placeholder="Euros...Dollars Américain..." required>
@@ -53,7 +56,7 @@ export default {
           console.log(response),
             // Émet un événement pour informer le composant parent que la devise a été créée
             this.$emit('currency-created');
-          console.log('Devise créée avec succès');
+          console.log('Successfully created currency');
         })
         .catch(error => {
           // Gére l'erreur s'il y en a une
@@ -63,14 +66,14 @@ export default {
               setTimeout(() => {
                 this.showError422 = false; // Masque l'erreur après quelques secondes
               }, 5000);
-            console.error('Erreur de validation :', error.response.data.errors);
+            console.error('Validation error:', error.response.data.errors);
           } else {
             // Gére toutes les autres erreurs
             this.showErrorRandom = true, // Affiche l'erreur aléatoire correspondante
               setTimeout(() => {
                 this.showErrorRandom = false; // Masque l'erreur après quelques secondes
               }, 5000);
-            console.error('Une erreur s\'est produite :', error);
+            console.error('An error has occurred:', error);
           }
         });
     },

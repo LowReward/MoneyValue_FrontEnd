@@ -7,15 +7,15 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
                         <!-- Lien pour accéder à l'accueil' -->
-                        <router-link class="nav-link" to="/">Accueil</router-link>
+                        <router-link class="nav-link" to="/" alt='Home'>Accueil</router-link>
                     </li>
                     <li class="nav-item">
                         <!-- Lien pour accéder à la vue des Pairs -->
-                        <router-link class="nav-link" to="/admin/dashboard/pairs">Paires</router-link>
+                        <router-link class="nav-link" to="/admin/dashboard/pairs" alt='Pairs Dashboard Page'>Paires</router-link>
                     </li>
                     <li class="nav-item">
                         <!-- Lien pour accéder à la vue des Currencies -->
-                        <router-link class="nav-link" to="/admin/dashboard/currencies">Devises</router-link>
+                        <router-link class="nav-link" to="/admin/dashboard/currencies" alt='Currencies Dashboard Page'>Devises</router-link>
                     </li>
                 </ul>
             </div>

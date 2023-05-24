@@ -2,6 +2,7 @@
     <div>
         <!-- Afficher la liste des paires si showCreateForm et showUpdateForm sont sur false -->
         <template v-if="!showCreateForm && !showUpdateForm">
+            <!-- Affichage des messages de confirmation et d'erreur -->
             <div v-if="showConfirmationCreated" class="alert alert-success mt-4">Devise créée avec succès.</div>
             <div v-if="showConfirmationUpdated" class="alert alert-success mt-4">Devise modifiée avec succès.</div>
             <div v-if="showConfirmationDeleted" class="alert alert-danger mt-4">Devise supprimée avec succès.</div>
@@ -115,7 +116,12 @@ export default {
                     this.currencies = response.data; // Assigne les devises à la propriété currencies
                 })
                 .catch(error => {
-                    console.error(error);
+                    // Gérer toutes les erreurs
+                    this.showErrorRandom = true; // Affiche l'erreur aléatoire
+                    setTimeout(() => {
+                        this.showErrorRandom = false; // Cache l'erreur après 5 secondes
+                    }, 5000);
+                    console.error("An error has occurred:", error);
                 });
         },
 

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- Barre de navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand mx-auto" href="#">MoneyValue</a>
@@ -9,9 +10,14 @@
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-6">
+                    <!-- Affichage d'une alerte d'erreur en cas d'échec de requête -->
+                    <div v-if="showErrorRandom" class="alert alert-danger mt-4">Une erreur s'est produite, veuillez
+                        réessayer.</div>
                     <h2 class="text-center">Currency converter</h2>
 
+                    <!-- Formulaire de conversion -->
                     <div class="d-flex justify-content-between mt-5">
+                        <!-- Sélection de la devise source -->
                         <div class="form-group">
                             <label for="pairFrom">Currency From :</label>
                             <select id="pairFrom" class="form-control" v-model="selectedPairFrom" @change="filterPairs"
@@ -21,6 +27,7 @@
                             </select>
                         </div>
 
+                        <!-- Sélection de la devise cible -->
                         <div class="form-group">
                             <label for="pairTo">Currency To :</label>
                             <select id="pairTo" class="form-control" v-model="selectedPairTo" required>
@@ -29,15 +36,18 @@
                             </select>
                         </div>
 
+                        <!-- Saisie du montant à convertir -->
                         <div class="form-group">
                             <label for="amount">Amount to convert :</label>
                             <input id="amount" class="form-control" type="number" v-model="amount" min="0" max="999999"
                                 pattern="^[0-9]+(\.[0-9]{1,2})?$" step="0.01" required />
                         </div>
 
+                        <!-- Bouton de conversion -->
                         <button class="btn btn-primary" @click="convert">Convert</button>
                     </div>
 
+                    <!-- Affichage du résultat de conversion -->
                     <div v-if="conversionResult" class="text-center mt-4">
                         Conversion result : {{ conversionResult.toFixed(3) }}
                     </div>
@@ -45,17 +55,19 @@
             </div>
         </div>
 
+        <!-- Pied de page -->
         <footer class="footer mt-5"
             style="background-color: #f8f9fa; padding: 20px 0; bottom: 0; position: fixed; width: 100%;">
             <div class="container text-center">
                 <p>Welcome to MoneyValue, the currency conversion platform designed specifically for
                     developers. Access our free and powerful REST API to perform currency conversions
-                    with ease just :</p>
-                    <a href="https://documenter.getpostman.com/view/27411059/2s93m5zgoi" target="_blank">here</a>
+                    with ease just here :</p>
+                <a href="https://documenter.getpostman.com/view/27411059/2s93m5zgoi" target="_blank" alt='Open tab to Api Documentation Page'>Click on me</a>
             </div>
         </footer>
     </div>
 </template>
+
   
   
 <script>
@@ -69,6 +81,7 @@ export default {
             selectedPairTo: '', // Devise de retour sélectionnée
             amount: '', // Montant à convertir
             conversionResult: '', // Résultat de la conversion
+            showErrorRandom: false, // Indicateur d'erreur aléatoire
         };
     },
     mounted() {
@@ -100,18 +113,23 @@ export default {
                     this.pairs = response.data; // Stockage des paires de devises dans le tableau
                 })
                 .catch(error => {
-                    console.error(error);
+                    // Gére toutes les erreurs
+                    this.showErrorRandom = true,
+                        setTimeout(() => {
+                            this.showErrorRandom = false;
+                        }, 5000);
+                    console.error('An error has occurred:', error);
                 });
         },
         filterPairs() {
             this.selectedPairTo = ''; // Réinitialisation de la devise de retour sélectionnée lors du changement de la devise de départ
         },
         convert() {
-            if (!this.selectedPairFrom || !this.selectedPairTo || !this.amount) {
+            /*if (!this.selectedPairFrom || !this.selectedPairTo || !this.amount) {
                 // Vérification si les champs sont vides
                 alert('Veuillez sélectionner les devises et saisir un montant valide.');
                 return;
-            }
+            }*/
             const payload = {
                 from_currency: this.selectedPairFrom, // Devise de départ sélectionnée
                 to_currency: this.selectedPairTo, // Devise de retour sélectionnée
@@ -123,7 +141,12 @@ export default {
                     this.conversionResult = response.data.conversion_amount; // Stockage du résultat de la conversion
                 })
                 .catch(error => {
-                    console.error(error);
+                    // Gére toutes les erreurs
+                    this.showErrorRandom = true,
+                        setTimeout(() => {
+                            this.showErrorRandom = false;
+                        }, 5000);
+                    console.error('An error has occurred:', error);
                 });
         },
     },

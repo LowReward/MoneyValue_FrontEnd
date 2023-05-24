@@ -89,9 +89,12 @@ export default {
                     this.selectedCurrency = this.pair.currency_from; // Sélectionne la devise de la paire à éditer
                 })
                 .catch(error => {
-                    // En cas d'erreur lors de la requête, l'erreur est affichée dans la console
-
-                    console.error(error);
+                    // Gérer toutes les erreurs
+                    this.showErrorRandom = true; // Affiche l'erreur aléatoire
+                    setTimeout(() => {
+                        this.showErrorRandom = false; // Cache l'erreur après 5 secondes
+                    }, 5000);
+                    console.error("An error has occurred:", error);
                 });
         },
         updatePair() {
@@ -114,7 +117,7 @@ export default {
                         setTimeout(() => {
                             this.showErrorRandom = false;
                         }, 5000);
-                    console.error('Une erreur s\'est produite :', error);
+                    console.error('An error has occurred:', error);
                 });
         },
         cancelUpdate() {

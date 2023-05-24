@@ -2,10 +2,12 @@
     <div>
         <!-- Afficher la liste des paires si showCreateForm et showUpdateForm sont sur false -->
         <template v-if="!showCreateForm && !showUpdateForm">
+            <!-- Affichage des messages de confirmation et d'erreur -->
             <div v-if="showConfirmationCreated" class="alert alert-success mt-4">Paires ajoutées avec succès.</div>
             <div v-if="showConfirmationUpdated" class="alert alert-success mt-4">Paire modifiée avec succès.</div>
             <div v-if="showConfirmationDelete" class="alert alert-danger mt-4">Paire supprimée avec succès.</div>
-            <div class="d-flex justify-content-center align-items-center mt-5 ">
+            <div v-if="showErrorRandom" class="alert alert-danger mt-4">Une erreur s'est produite, veuillez réessayer.</div>
+            <div class="d-flex justify-content-center align-items-center mt-5">
                 <h2>Liste des paires:</h2>
                 <!-- Appel de la méthode toggleCreateForm pour afficher le form de création de paire -->
                 <button class="btn btn-primary mx-5" @click="toggleCreateForm">Ajouter une paire</button>

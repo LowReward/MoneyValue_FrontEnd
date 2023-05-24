@@ -71,14 +71,14 @@ export default {
               setTimeout(() => {
                 this.showError422 = false;
               }, 5000);
-            console.error('Erreur de validation :', error.response.data.errors);
+            console.error('An error has occurred:', error.response.data.errors);
           } else {
             // Gére toutes les autres erreurs
             this.showErrorRandom = true,
               setTimeout(() => {
                 this.showErrorRandom = false;
               }, 5000);
-            console.error('Une erreur s\'est produite :', error);
+            console.error('An error has occurred:', error);
           }
         });
     },
