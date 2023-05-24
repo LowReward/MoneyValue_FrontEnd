@@ -47,10 +47,9 @@
                         <button class="btn btn-primary" @click="convert">Convert</button>
                     </div>
 
-                    <!-- Affichage du résultat de conversion avec uniquement 6 chiffres après la virgule
-                    dans des cas EUR vers BTC ca peut être utile puisque le conversion est très faible [1 EUR = 0,000041 BTC]-->
+                    <!-- Affichage du résultat de conversion -->
                     <div v-if="conversionResult" class="text-center mt-4">
-                        Conversion result : {{ conversionResult.toFixed(6) }}
+                        Conversion result : {{ conversionResult }}
                     </div>
                 </div>
             </div>
